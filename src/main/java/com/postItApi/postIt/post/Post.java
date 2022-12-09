@@ -8,6 +8,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name="posts")
@@ -16,8 +19,15 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotEmpty
+    @Size(min = 3, max = 25)
     private String title;
+
+    @NotEmpty
+    @Size(min = 10, max = 250)
     private String content;
+
+    @NotNull //boolean can only be one of two values, so as long as it's not null, it will be either true or false (I hope)
     private Boolean isPrivate;
 
     @ManyToOne

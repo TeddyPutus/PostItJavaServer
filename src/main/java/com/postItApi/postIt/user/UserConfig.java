@@ -1,4 +1,6 @@
 package com.postItApi.postIt.user;
+import java.util.List;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,10 +16,11 @@ public class UserConfig {
         return args -> {
             User user1 = new User("TeddyP", "thisisapassword", "teddy@email.com");
 
-            Post post1 = new Post("myfirstpost", "hello all", false, user1);
+            Post post1 = new Post("myfirstpost", "hello allll", false, user1);
+            Post post2 = new Post("SECRET", "shhhhhhhhhh", true, user1);
 
             repository.save(user1);
-            postRepository.save(post1);
+            postRepository.saveAll(List.of(post1, post2));
         };    
     }
 }

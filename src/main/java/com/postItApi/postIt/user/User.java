@@ -1,7 +1,6 @@
 package com.postItApi.postIt.user;
 
 import java.util.Collection;
-import java.util.Set;
 
 import com.postItApi.postIt.post.Post;
 
@@ -11,6 +10,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name="users")
@@ -19,10 +23,19 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotEmpty
+    // @Pattern(regexp = "^[A-Za-z0-9]+$")
     private String username;
+
+    @NotEmpty
+    @Size(min = 6)
+    // @Pattern(regexp = "^[A-Za-z0-9]+$")
     private String password;
+
+    @NotEmpty
+    @Email(message = "Not a valid email")
     private String email;
-    private Boolean isLoggedIn;
+    private Boolean isLoggedIn = false;
 
     @OneToMany
     Collection<Post> posts;
